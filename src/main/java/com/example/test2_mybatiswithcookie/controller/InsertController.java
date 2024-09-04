@@ -21,7 +21,8 @@ public class InsertController {
     MemberService service;
 
     @GetMapping("/member/insert")
-    public String insertForm() {
+    public String insertForm(@ModelAttribute Member member) {
+
         return "member/insert";
     }
 
