@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.test2_mybatiswithcookie.mybatis.MemberMapper">
+    <insert id="insert" parameterType="Member"> <!-- application.properties에서 alias 설정해서 Member앞에 패키지명 없어도됨 -->
+        insert into member
+        values(#{id}, #{pwd}, #{email}, #{age}, sysdate)
+    </insert>
+    <select id="list" resultType="Member" parameterType="hashmap">
+        <![CDATA[
+        select * from
+        (
+            select m.*, rownum rnum from
+            (
+                select * from member order by regdate desc
+            )m
+        )where rnum>=#{startRow} and rnum<=#{endRow}
+        ]]>
+    </select>
+    <select id="count" resultType="int">
+        select count(*) from member
+    </select>
+    <delete id="delete" parameterType="String">
+        delete from member where id = #{id}
+    </delete>
+    <update id="update" parameterType="Member"><!--parmeterType 생략해도됨-->
+        update member
+        set pwd=#{pwd}, email=#{email}, age=#{age}, regdate=#{regdate}
+        where id=#{id}
+    </update>
+    <select id="select" resultType="Member"><!--parameterType 안줘도 됌-->
+        select * from member where id = #{id}
+    </select>
+    <select id="isMember" parameterType="hashmap" resultType="Member">
+        select * from member where id=#{id} and pwd=#{pwd}
+    </select>
+</mapper>

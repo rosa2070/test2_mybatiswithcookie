@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>home.html</title>
+</head>
+<body>
+<h1>Home!!!</h1>
+<img th:src="@{images/1.jpg}"><br>
+<ul>
+  <li th:if="${session.id==null}">
+    <a th:href="@{/member/login}">로그인</a>
+  </li>
+  <li th:if="${session.id!=null}">
+    <span th:text="${session.id}"></span>
+    <a th:href="@{/member/logout}">로그아웃</a>
+  </li>
+  <li><a th:href="@{/member/insert}">회원등록</a></li>
+  <li><a th:href="@{/member/list}">회원목록</a></li>
+</ul>
+</body>
+</html>

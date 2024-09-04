@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>member/list.html</title>
+    <style>
+        .active {
+            color: red;
+            background-color: yellow;
+        }
+    </style>
+</head>
+<body>
+<!-- 회원목록 출력해 보세요 -->
+<h1>회원목록</h1>
+<table>
+    <tr>
+        <th>아이디</th>
+        <th>비밀번호</th>
+        <th>이메일</th>
+        <th>나이</th>
+        <th>가입일</th>
+    </tr>
+    <tr th:each="m : ${list}">
+        <td th:text="${m.id}"></td>
+        <td th:text="${m.pwd}"></td>
+        <td th:text="${m.email}"></td>
+        <td th:text="${m.age}"></td>
+        <td th:text="${#dates.format(m.regdate, 'yyyy-MM-dd HH:mm:ss')}"></td>
+        <td><a th:href="@{/member/delete(id=${m.id})}">삭제</a></td>
+        <td><a th:href="@{/member/update(id=${m.id})}">수정</a></td>
+    </tr>
+</table>
+<div>
+  <span th:if="${startPage>3}">
+      <a th:href="@{/member/list(page=${startPage-1})}" th:text="prev"></a>
+  </span>
+    <span th:each="num : ${#numbers.sequence(startPage, endPage)}">
+    <a th:classappend="${num == page}?active" th:href="@{/member/list(page=${num})}">[[${num}]]</a>
+  </span>
+    <!-- next -->
+    <span th:if="${endPage<pageCount}">
+    <a th:href="@{/member/list(page=${endPage+1})}" th:text="next"></a>
+  </span>
+
+</div>
+
+
+</body>
+</html>

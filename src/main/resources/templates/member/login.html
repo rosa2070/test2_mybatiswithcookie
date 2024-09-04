@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>member/login.html</title>
+</head>
+<body>
+<h1>회원로그인</h1>
+<form method="post" th:action="@{/member/login}" th:object="${login}">
+    아이디 <input name="id" th:field="*{id}"/><br>
+    비밀번호 <input name="pwd" th:field="*{pwd}" /><br>
+    <input type="checkbox" name="remeberMe" th:field="*{rememberMe}"/>
+    자동채우기<br>
+    <input type="submit" value="로그인">
+</form>
+</body>
+</html>
